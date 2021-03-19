@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 import ListItems from './ListItems'
+// import { libray } from '@fortawesome/fontawesome-svg-core'
+// import { libray } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +17,8 @@ class App extends React.Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.setUpdate = this.setUpdate.bind(this);
   }
   
   handleInput(e) {
@@ -32,7 +37,7 @@ class App extends React.Component {
     if(newItem.text !=="") {
       const items = [...this.state.items, newItem];
       this.setState({
-        items:newItem,
+        items:items,
         currentItem: {
           text: '',
           key: '',
@@ -41,16 +46,54 @@ class App extends React.Component {
     }
   }
 
+  deleteItem(key) {
+    const filteredItems = this.state.items.filter(item => item.key !== key);
+    this.setState({
+      items: filteredItems,
+    })
+  }
+
+  setUpdate(text, key) {
+    const items = this.this.state.items;
+    items.map(item => {
+      if(item.key === key) {
+        // console.log(item.key + "   " + key);
+        item.text = text;
+      }
+      return item;
+    })
+    this.setState({
+      items: items,
+    })
+  }
+
   render() {
     return (
       <div className="App">
+
         <header>
+
           <form id="to-do-form" onSubmit={this.addItem}>
-            <input type="text" placeholder="Enter Text" value={this.state.currentItem.text} onChange={this.handleInput} />
+
+            <input
+              type="text"
+              placeholder="Enter Text"
+              value={this.state.currentItem.text}
+              onChange={this.handleInput}
+            />
+
             <button type="text">Add</button>
+
           </form>
+
         </header>
-        <ListItems items={this.this.state.items} />
+
+        <ListItems
+          items={this.state.items}
+          deleteItem={this.deleteItem}
+          setUpdate={this.setUpdate}
+          />
+
       </div>
     )
   }
