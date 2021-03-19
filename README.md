@@ -1,6 +1,6 @@
 # Reactjs TodoList (CRUD App)
 
-Build A TodoList App with React from Scratch (Including Hooks)
+Build A Todo List App with React with Class (Including Hooks)
 
 [![Reactjs TodoList](demo.png)](https://basemax.github.io/reactjs-todolist)
 
