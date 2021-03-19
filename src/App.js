@@ -1,5 +1,6 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import ListItems from './ListItems'
 
 class App extends React.Component {
   constructor(props) {
@@ -9,8 +10,10 @@ class App extends React.Component {
       currentItem: {
         text: '',
         key: ''
-      }
+      },
     };
+    this.handleInput = this.handleInput.bind(this);
+    this.addItem = this.addItem.bind(this);
   }
   
   handleInput(e) {
@@ -26,16 +29,29 @@ class App extends React.Component {
     e.preventDefault();
     const newItem = this.state.currentItem;
     console.log(newItem);
+    if(newItem.text !=="") {
+      const items = [...this.state.items, newItem];
+      this.setState({
+        items:newItem,
+        currentItem: {
+          text: '',
+          key: '',
+        }
+      })
+    }
   }
 
   render() {
     return (
-      <header>
-        <form id="to-do-form" onSubmit={this.addItem}>
-          <input type="text" placeholder="Enter Text" value={this.state.currentItem.text} onChange={this.handleInput} />
-          <button type="text">Add</button>
-        </form>
-      </header>
+      <div className="App">
+        <header>
+          <form id="to-do-form" onSubmit={this.addItem}>
+            <input type="text" placeholder="Enter Text" value={this.state.currentItem.text} onChange={this.handleInput} />
+            <button type="text">Add</button>
+          </form>
+        </header>
+        <ListItems items={this.this.state.items} />
+      </div>
     )
   }
 }
